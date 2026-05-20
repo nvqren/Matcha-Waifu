@@ -3188,4 +3188,4 @@ else
     _G.WaifuUI = UI
 end
 
-if true then return UI end
+return UI
