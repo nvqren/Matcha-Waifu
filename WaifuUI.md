@@ -30,9 +30,9 @@ UI:Demo()
 
 Press F1 to open and close the menu.
 
-## Window Controls Style
+## Controls Style
 
-You can change the style of the window title bar controls. You choose between macOS traffic lights, Windows style controls, Linux minimal circles, or custom layouts. Pass the style name to UI:SetWindowControlsStyle.
+You can change the style of the window title bar controls. You choose between macOS traffic lights, Windows buttons, Linux minimal circles, or custom layouts. Pass the style name to UI:SetWindowControlsStyle.
 
 ```lua
 -- Apply macOS traffic lights (default)
@@ -44,14 +44,16 @@ UI:SetWindowControlsStyle("Windows")
 -- Apply Linux circular outlines
 UI:SetWindowControlsStyle("Linux")
 
--- Apply Custom layout
+-- Apply a Custom layout
 UI:SetWindowControlsStyle("Custom", {
-    align = "right",
+    align = "left",
     closeColor = Color3.fromRGB(255, 95, 87),
     minColor = Color3.fromRGB(255, 189, 46),
     restoreColor = Color3.fromRGB(39, 201, 63)
 })
 ```
+
+The custom style options let you define the button alignment on the title bar and assign individual colors to each control. Set the align field to left or right. Pass Color3 values to closeColor, minColor, and restoreColor fields to style the buttons.
 
 ## API Reference
 
@@ -198,9 +200,9 @@ You can change the menu title at any time. Pass your new title string to the Set
 UI:SetTitle("My Custom Script")
 ```
 
-Define your own custom theme by creating a color table. Pass this table to SetTheme or AddThemePreset. The SetTheme method applies the colors immediately. The AddThemePreset method registers the theme so you can choose it from the settings tab.
+Create your own custom theme by defining a color table. Pass this table to UI:SetTheme to apply the colors immediately. Alternatively, pass the name and table to UI:AddThemePreset to register the theme. Registered themes appear in the Settings tab dropdown.
 
-You do not need to supply every color key. Passing a partial table only updates the specific colors you define.
+You do not need to supply every color key. A partial table only updates the specific colors you define.
 
 This example creates and applies a custom neon theme.
 
@@ -215,7 +217,7 @@ local myTheme = {
 UI:SetTheme(myTheme)
 ```
 
-To register this theme as a preset named Neon so you can select it from settings, do this instead.
+To register this theme as a preset named Neon, do this.
 
 ```lua
 UI:AddThemePreset("Neon", myTheme)

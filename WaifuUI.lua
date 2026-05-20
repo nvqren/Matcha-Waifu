@@ -1098,14 +1098,14 @@ function UI:CreateSettingsTab(name)
 
     menuSec:Divider("Theme Options")
 
-    local themes = {"Apple Blue", "Gamesense", "Cyberpunk", "Sakura", "Monochrome", "Waifu Classic"}
+    local themes = {"Matcha Waifu", "Apple Blue", "Gamesense", "Cyberpunk", "Sakura", "Monochrome"}
     for k, _ in pairs(CustomPresets) do
         themes[#themes + 1] = k
     end
 
-    menuSec:Dropdown("Theme Preset", {"Apple Blue"}, themes, false, function(selected)
+    menuSec:Dropdown("Theme Preset", {"Matcha Waifu"}, themes, false, function(selected)
         local themeName = selected[1]
-        ProjectState.showWaifu = (themeName == "Waifu Classic")
+        ProjectState.showWaifu = (themeName == "Matcha Waifu")
         if CustomPresets[themeName] then
             UI:SetTheme(CustomPresets[themeName])
         elseif themeName == "Apple Blue" then
@@ -1173,7 +1173,7 @@ function UI:CreateSettingsTab(name)
                 toggleOn = C3(220, 220, 220),
                 toggleOff = C3(75, 75, 75),
             })
-        elseif themeName == "Waifu Classic" then
+        elseif themeName == "Matcha Waifu" then
             UI:SetTheme({
                 bg = C3(16, 22, 18),
                 surface = C3(24, 32, 26),
@@ -2868,7 +2868,12 @@ local function renderWindow(click, held, rightClick)
             baseClick = false
         end
     else
-        txt(ProjectState.title, x + 70, textTop(y, TITLE_H, 14), Theme.text, 14, FontBold, 16, false, false, w - 110)
+        local titleX = 14
+        if style == "macOS" or (style == "Custom" and (ProjectState.customControls and ProjectState.customControls.align == "left")) then
+            titleX = 70
+        end
+        local titleMaxW = searchLensX - (x + titleX) - 10
+        txt(ProjectState.title, x + titleX, textTop(y, TITLE_H, 14), Theme.text, 14, FontBold, 16, false, false, titleMaxW)
     end
 
     if not ProjectState.minimized and h > MINIMIZED_H then
