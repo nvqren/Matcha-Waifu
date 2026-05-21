@@ -7,7 +7,7 @@ Waifu UI is a single-file user interface library for the Matcha executor. It use
 Paste the code into your script or load it using loadstring. Here is how you initialize a basic window and add elements.
 
 ```lua
-local UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/nvqren/Matcha-Waifu/refs/heads/main/WaifuUI.lua"))()
+local UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/nvqren/Matcha-Waifu/refs/heads/main/Waifu%20UI/WaifuUI.lua"))()
 
 local main = UI:Tab("Main")
 local aim = main:Section("Aimbot")
@@ -25,7 +25,7 @@ boxToggle:DependsOn(aim)
 Test all controls at once by running this function.
 
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/nvqren/Matcha-Waifu/refs/heads/main/WaifuUI.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/nvqren/Matcha-Waifu/refs/heads/main/Waifu%20UI/WaifuUI.lua"))()
 UI:Demo()
 ```
 
