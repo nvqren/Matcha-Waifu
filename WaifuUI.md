@@ -25,6 +25,7 @@ boxToggle:DependsOn(aim)
 Test all controls at once by running this function.
 
 ```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/nvqren/Matcha-Waifu/refs/heads/main/WaifuUI.lua"))()
 UI:Demo()
 ```
 
