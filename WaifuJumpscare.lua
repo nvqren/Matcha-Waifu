@@ -18,7 +18,7 @@ waifu.Size = Vector2.new(288, 512)
 waifu.Position = Vector2.new(500, 200)
 waifu.Visible = true
 
-local waifuImageData = game:HttpGet("https://raw.githubusercontent.com/nvqren/dawg/refs/heads/main/waifu.png")
+local waifuImageData = game:HttpGet("https://raw.githubusercontent.com/nvqren/Matcha-Waifu/refs/heads/main/waifu.png")
 waifu.Data = waifuImageData
 
 local dragging = false
