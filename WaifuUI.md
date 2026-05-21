@@ -33,20 +33,20 @@ Press F1 to open and close the menu.
 
 ## Controls Style
 
-You can change the style of the window title bar controls. You choose between macOS traffic lights, Windows buttons, Linux minimal circles, or custom layouts. Pass the style name to UI:SetWindowControlsStyle.
+You can change the style of the window title bar controls. You choose between macOS traffic lights, Windows buttons, Linux minimal circles, or custom layouts. Pass the style name to UI:SetControlsStyle.
 
 ```lua
--- Apply macOS traffic lights (default)
-UI:SetWindowControlsStyle("macOS")
+-- Apply Windows rect buttons (default)
+UI:SetControlsStyle("Windows")
 
--- Apply Windows rect buttons
-UI:SetWindowControlsStyle("Windows")
+-- Apply macOS traffic lights
+UI:SetControlsStyle("macOS")
 
 -- Apply Linux circular outlines
-UI:SetWindowControlsStyle("Linux")
+UI:SetControlsStyle("Linux")
 
 -- Apply a Custom layout
-UI:SetWindowControlsStyle("Custom", {
+UI:SetControlsStyle("Custom", {
     align = "left",
     closeColor = Color3.fromRGB(255, 95, 87),
     minColor = Color3.fromRGB(255, 189, 46),
@@ -67,7 +67,7 @@ The custom style options let you define the button alignment on the title bar an
 | UI:SetPos(x, y) | UI | Changes the window position. |
 | UI:SetSize(w, h) | UI | Sets the window size. The window clamps at 300 by 120. |
 | UI:Center() | UI | Places the window in the center of your screen. |
-| UI:SetWindowControlsStyle(style, options) | UI | Sets the title bar buttons style. Select macOS, Windows, Linux, or Custom. |
+| UI:SetControlsStyle(style, options) | UI | Sets the title bar buttons style. Select macOS, Windows, Linux, or Custom. |
 | UI:RegisterActivity(fn) | Table | Runs your function every frame. The watermark displays the string you return. |
 | UI:CreateSettingsTab(name) | Tab | Creates the settings tab. This tab manages themes, keybinds, watermarks, and diagnostics. |
 | UI:AddThemePreset(name, colors) | UI | Registers your theme colors to the preset list. |
@@ -182,7 +182,7 @@ Mouse-wheel scrolling does not work because Matcha cannot detect wheel input rel
 
 ## Styling and Themes
 
-The UI defaults to macOS-style traffic lights in the top-left corner. You can change this style in the Settings tab.
+The UI defaults to Windows-style buttons in the top-right corner. You can change this style in the Settings tab.
 
 You have access to these fonts:
 - UI or ProggyClean

@@ -156,7 +156,7 @@ local ProjectState = {
     watermarkDrag = nil,
     activityText = "",
     errorCount = 0,
-    windowControlsStyle = "macOS",
+    windowControlsStyle = "Windows",
     customControls = {
         align = "right",
         closeColor = C3(255, 95, 87),
@@ -987,8 +987,8 @@ function UI:Center()
     return self
 end
 
-function UI:SetWindowControlsStyle(style, options)
-    style = tostring(style or "macOS")
+function UI:SetControlsStyle(style, options)
+    style = tostring(style or "Windows")
     if style == "macOS" or style == "Windows" or style == "Linux" or style == "Custom" then
         ProjectState.windowControlsStyle = style
     end
@@ -1069,9 +1069,9 @@ function UI:CreateSettingsTab(name)
 
     menuSec:Divider("Window Settings")
 
-    menuSec:Dropdown("Window Controls Style", {ProjectState.windowControlsStyle or "macOS"}, {"macOS", "Windows", "Linux", "Custom"}, false, function(selected)
+    menuSec:Dropdown("Controls Style", {ProjectState.windowControlsStyle or "Windows"}, {"macOS", "Windows", "Linux", "Custom"}, false, function(selected)
         local style = selected[1]
-        UI:SetWindowControlsStyle(style)
+        UI:SetControlsStyle(style)
     end)
 
     local customAlign = menuSec:Toggle("Custom Controls Align Right", true, function(val)
@@ -2687,7 +2687,7 @@ local function renderWindow(click, held, rightClick)
     local titleMidY = centerY(y, TITLE_H)
     local btnY = titleMidY
 
-    local style = ProjectState.windowControlsStyle or "macOS"
+    local style = ProjectState.windowControlsStyle or "Windows"
 
     local searchLensX
     if style == "macOS" or (style == "Custom" and (ProjectState.customControls and ProjectState.customControls.align == "left")) then
