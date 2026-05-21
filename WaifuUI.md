@@ -148,9 +148,11 @@ The UI dims dependent controls and blocks their input when you chain the Depends
 
 Resize the window by dragging the diagonal grip in the bottom-right corner. The window refuses to shrink below 300 by 120.
 
-Click and drag the scrollbar thumb to scroll. The scrollbar stays locked to your mouse even if your cursor leaves the thumb.
+Click and drag the scrollbar thumb to scroll. The thumb tracks your exact grab point so it never jumps. Clicking the track area above or below the thumb jumps the scroll position to that spot.
 
 Arrow buttons appear when you have too many tabs to fit on the screen. The tab bar scrolls smoothly and automatically brings your active tab into view.
+
+Keyboard scroll shortcuts (Arrow keys, PageUp, PageDown, Home, End) only work when you have no focused text input, no open dropdown, and no active color picker. This prevents accidental scrolling while you type.
 
 ## Overlays and Indicators
 

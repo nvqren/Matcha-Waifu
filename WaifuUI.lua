@@ -368,6 +368,7 @@ local function setOpen(open)
     ProjectState.open = open
     ProjectState.drag = nil
     ProjectState.sliderDrag = nil
+    ProjectState.scrollDrag = nil
     ProjectState.dropdown = nil
     ProjectState.colorpicker = nil
     ProjectState.focus = nil
@@ -2376,8 +2377,9 @@ local function renderSections(tab, click, held, rightClick, px, contY, pw, contH
     tab.maxScroll = max(0, contentH - viewH)
     tab.scrollY = tab.scrollY or 0
     tab.targetScrollY = clamp(tab.targetScrollY or tab.scrollY, 0, tab.maxScroll)
+    local popupBlocking = ProjectState.dropdown ~= nil or ProjectState.colorpicker ~= nil
 
-    if tab.maxScroll > 0 then
+    if tab.maxScroll > 0 and not popupBlocking and not ProjectState.focus then
         if Input.up.held then
             tab.targetScrollY = max(0, tab.targetScrollY - 12)
         end
@@ -2409,7 +2411,6 @@ local function renderSections(tab, click, held, rightClick, px, contY, pw, contH
     local clipBottom = contY + contH - 4
     local rowX = px + 12
     local rowW = pw - 24
-    local popupBlocking = ProjectState.dropdown ~= nil or ProjectState.colorpicker ~= nil
 
     for si = 1, #sectionsToRender do
         local section = sectionsToRender[si]
@@ -2640,17 +2641,26 @@ local function renderSections(tab, click, held, rightClick, px, contY, pw, contH
         local barH = max(22, (trackH / max(contentH, trackH)) * trackH)
         local barY = contY + CONTENT_PAD + (tab.scrollY / max(1, tab.maxScroll)) * (trackH - barH)
         local trackHovered = over(px + pw - 11, contY + CONTENT_PAD, 12, trackH)
+        local overBar = over(px + pw - 11, barY, 12, barH)
         rect(px + pw - 6, contY + CONTENT_PAD, 3, trackH, C3(45, 45, 52), 50, 2)
         rect(px + pw - 6, barY, 3, barH, Theme.sub, 51, 2)
         if click and trackHovered and not popupBlocking then
-            ProjectState.scrollDrag = tab
+            local grab = barH / 2
+            if overBar then
+                grab = clamp(ProjectState.mouseY - barY, 0, barH)
+            end
+            ProjectState.scrollDrag = {
+                tab = tab,
+                grab = grab,
+            }
             click = false
         end
-        if held and ProjectState.scrollDrag == tab then
-            local frac = clamp((ProjectState.mouseY - contY - CONTENT_PAD - barH / 2) / max(1, trackH - barH), 0, 1)
+        local drag = ProjectState.scrollDrag
+        if held and type(drag) == "table" and drag.tab == tab then
+            local frac = clamp((ProjectState.mouseY - (contY + CONTENT_PAD) - drag.grab) / max(1, trackH - barH), 0, 1)
             tab.targetScrollY = frac * tab.maxScroll
         end
-    elseif ProjectState.scrollDrag == tab then
+    elseif type(ProjectState.scrollDrag) == "table" and ProjectState.scrollDrag.tab == tab then
         ProjectState.scrollDrag = nil
     end
 
