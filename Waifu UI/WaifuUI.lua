@@ -3195,12 +3195,7 @@ else
     end)
 end
 
-if type(getgenv) == "function" then
-    getgenv().UI = UI
-    getgenv().WaifuUI = UI
-else
-    _G.UI = UI
-    _G.WaifuUI = UI
-end
+_G.UI = UI
+_G.WaifuUI = UI
 
 return UI
