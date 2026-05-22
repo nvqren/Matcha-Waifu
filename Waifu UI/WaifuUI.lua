@@ -2920,26 +2920,14 @@ local function renderWindow(click, held, rightClick)
 end
 
 local loadedData = nil
-local loading = false
 
 local function loadWaifuData()
-    if loadedData or loading then return end
-    loading = true
-    task.spawn(function()
-        local url = "https://raw.githubusercontent.com/nvqren/dawg/refs/heads/main/waifu.png"
-        local getok, response = pcall(function()
-            return game:HttpGet(url)
-        end)
-        if getok and response then
-            loadedData = response
-            if ProjectState.waifuDrawing then
-                pcall(function()
-                    ProjectState.waifuDrawing.Data = response
-                end)
-            end
-        end
-        loading = false
-    end)
+    if loadedData then return end
+    local url = "https://raw.githubusercontent.com/nvqren/Matcha-Waifu/refs/heads/main/waifu.png"
+    local response = game:HttpGet(url)
+    if response then
+        loadedData = response
+    end
 end
 
 local function updateWaifuImage()
@@ -2955,6 +2943,14 @@ local function updateWaifuImage()
     end
 
     if ProjectState.showWaifu and ProjectState.open and ProjectState.focusedWindow and not ProjectState.minimized then
+        loadWaifuData()
+        if not loadedData then
+            if ProjectState.waifuDrawing then
+                ProjectState.waifuDrawing.Visible = false
+            end
+            return
+        end
+
         local aspect = 288 / 512
         local w_new, h_new
         if ProjectState.w / ProjectState.h > aspect then
@@ -2970,32 +2966,21 @@ local function updateWaifuImage()
         if not ProjectState.waifuDrawing then
             local ok, img = pcall(DrawingNew, "Image")
             if ok and img then
-                ProjectState.waifuDrawing = img
                 img.Size = V2(w_new, h_new)
                 img.Position = V2(pos_x, pos_y)
                 img.ZIndex = 6
                 img.Transparency = 0.7
-                img.Visible = false
-                if loadedData then
-                    pcall(function()
-                        img.Data = loadedData
-                    end)
+                local dataOk = pcall(function()
+                    img.Data = loadedData
+                end)
+                if dataOk then
                     img.Visible = true
-                else
-                    loadWaifuData()
+                    ProjectState.waifuDrawing = img
                 end
             end
         else
             ProjectState.waifuDrawing.Position = V2(pos_x, pos_y)
             ProjectState.waifuDrawing.Size = V2(w_new, h_new)
-            if loadedData and not ProjectState.waifuDrawing.Visible then
-                pcall(function()
-                    if ProjectState.waifuDrawing.Data == "" or not ProjectState.waifuDrawing.Data then
-                        ProjectState.waifuDrawing.Data = loadedData
-                    end
-                end)
-                ProjectState.waifuDrawing.Visible = true
-            end
         end
     else
         if ProjectState.waifuDrawing then
