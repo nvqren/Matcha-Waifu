@@ -1,14 +1,3 @@
-if type(identifyexecutor) ~= "function" then
-    error("Waifu UI requires Matcha executor")
-end
-
-do
-    local executor = select(1, identifyexecutor())
-    if executor ~= "Matcha" then
-        error("Waifu UI requires Matcha executor")
-    end
-end
-
 local DrawingNew = Drawing.new
 local V2 = Vector2.new
 local C3 = Color3.fromRGB
