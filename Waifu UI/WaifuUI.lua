@@ -2970,6 +2970,7 @@ local function updateWaifuImage()
         else
             ProjectState.waifuDrawing.Position = V2(pos_x, pos_y)
             ProjectState.waifuDrawing.Size = V2(w_new, h_new)
+            ProjectState.waifuDrawing.Visible = true
         end
     else
         if ProjectState.waifuDrawing then
